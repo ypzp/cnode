@@ -1,0 +1,142 @@
+#header {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background: #108ee9;
+    text-align: center;
+    color: #ffffff;
+    z-index: 2;
+    box-shadow: 0 0 4px #109ff9;
+}
+
+#header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#header li {
+    list-style-type: none;
+    width: 20%;
+    line-height: 40px;
+    float: left;
+}
+
+#footer a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.4rem;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: #108ee9;
+    text-align: center;
+    color: #ffffff;
+}
+
+#footer li {
+    list-style-type: none;
+    width: 25%;
+    float: left;
+}
+
+#footer i {
+    font-size: 20px;
+    display: block;
+    margin: 0px 0px -8px 0px;
+}
+
+.user-view-title {
+    color: #000000;
+    line-height: 40px;
+    margin-left: 5px;
+    display: inline-block;
+    width: 85%;
+    overflow: hidden;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.index {
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    /* Firefox 4 */
+    -webkit-transition: all 0.5s;
+    /* Safari and Chrome */
+    -o-transition: all 0.5s;
+    /* Opera */
+}
+
+.topic-content {
+    border-bottom: 1px #ccc dashed;
+    margin-top: 55px;
+    padding-bottom: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.mark {
+    width: 23.55px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.icon-good {
+    background: green;
+    margin-right: 3px;
+}
+
+.icon-top {
+    background: red;
+    margin-right: 3px;
+}
+
+.icon-share {
+    background: #ff66ff;
+    margin-right: 3px;
+}
+
+.icon-ask {
+    background: blue;
+    margin-right: 3px;
+}
+
+.icon-job {
+    background: #00b38a;
+    margin-right: 3px;
+    font-weight: 500;
+}
+
+@media screen and (min-width: 1081px) {
+    #header {
+        width: 40%;
+    }
+    #footer {
+        width: 40%;
+    }
+    body {
+        width: 40%;
+        margin: 0 auto;
+    }
+    html {
+        background: rgba(50, 50, 50, 1);
+    }
+    .icon-backtop {
+        right: 31%;
+        bottom: 50px;
+    }
+    .guide {
+        width: 40%;
+    }
+    #reply-textArea {
+        width: 40%;
+        left: 30%;
+    }
+    #reply-btn {
+        margin-right: 30%;
+    }
+}

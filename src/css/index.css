@@ -1,0 +1,99 @@
+.contant {
+    width: 100%;
+    display: inline-block;
+    padding: 5px 5px 8px;
+    border-bottom: 1px #ddd solid;
+}
+
+.user-view {
+    margin-top: 45px;
+}
+
+.user-view span {
+    font-size: 1.3rem;
+}
+
+.avator {
+    width: 45px;
+    float: left;
+    border-radius: 10%;
+}
+
+.user-view-avator {
+    border-radius: 10%;
+    display: block;
+    margin: 0 auto;
+    width: 18%;
+}
+
+.recent {
+    width: 100%;
+    display: inline-block;
+    border-bottom: 1px #ccc dashed;
+    padding: 4px 2px;
+}
+
+.contant i {
+    float: left;
+}
+
+.title {
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    color: #000000;
+    font-size: 1.6rem;
+    overflow: hidden;
+    width: 100%;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#position {
+    position: fixed;
+    left: 10px;
+    top: 0px;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+@media screen and (min-width: 1080px) {
+    .avator {
+        width: 60px;
+        height: 60px;
+    }
+    #position {
+        left: 30%;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0.2;
+            /*-webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);*/
+            -webkit-transform: translate(0px, 30px);
+            transform: translate(0px, 30px);
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+        }
+    }
+    .fadeInUp {
+        -webkit-animation-name: fadeInUp;
+        animation-name: fadeInUp;
+    }
+    .animated {
+        /* -webkit-animation-duration: 1s; */
+        animation-duration: 0.75s;
+        /* -webkit-animation-fill-mode: both; */
+        animation-fill-mode: both;
+    }
+}
+
+@media screen and (max-width: 1081px) {
+    .user-view-avator {
+        width: 25%;
+    }
+}

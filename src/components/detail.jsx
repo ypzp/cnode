@@ -6,7 +6,6 @@ import {Guide, Tip} from './common/layout'
 import {Spin} from './common/spin'
 import {loadMore, formatTime} from './common/tool'
 import request from '../util/request'
-import '../css/detail.css'
 import {setTimeout} from 'timers'
 
 const {TextArea} = Input

@@ -11,7 +11,7 @@ class Mine extends Component {
   state = { position: '' }
   componentWillMount() {
     this.getPosition();
-    const { UserLogin, GetAccessToken, SetUserStatus } = this.props
+    const { UserLogin } = this.props
     request(`/accesstoken`, {accesstoken: sessionStorage.AccessToken}).then(res => {
       if (res !== undefined)
         request(`/user/${res.loginname}`)
@@ -30,7 +30,7 @@ class Mine extends Component {
         return res.json()
       })
       .then(res => {
-        fetch(`http://restapi.amap.com/v3/ip?key=c5c368adb8bb95aac7cab8099f2b716c&ip=${res.ip}`)
+        fetch(`http://restapi.amap.com/v3/ip?key=&ip=${res.ip}`)
           .then(res => {
             return res.json()
           })

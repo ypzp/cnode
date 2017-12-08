@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Tabs,Modal} from 'antd'
+import {Tabs} from 'antd'
 import {Link} from 'react-router-dom'
 import {formatTime} from './common/tool'
 import {Footer, Tip, Guide} from './common/layout'
@@ -25,14 +25,13 @@ class Message extends Component {
           has_read_messages: res.data.has_read_messages,
           hasnot_read_messages: res.data.hasnot_read_messages
         })
-        console.log(res)
       })
     }
   }
 
   render() {
     const {location, USER_OFF, history} = this.props
-    const {messCount, has_read_messages, hasnot_read_messages} = this.state
+    const {has_read_messages, hasnot_read_messages} = this.state
     return (
       <div>
         {USER_OFF ? (
@@ -41,7 +40,7 @@ class Message extends Component {
             <Tip history={history} />
           </div>
         ) : (
-          <div style={{marginTop: '45px'}}>
+          <div style={{marginTop: '45px', marginBottom: '50px'}}>
             <Guide title={'消息'} />
             <Tabs defaultActiveKey="has_read">
               <TabPane tab="未读消息" key="has_read">
@@ -65,8 +64,8 @@ const mapStateToProps = state => {
 const Title = ({messages}) => {
   if (messages.length !== 0) {
     return messages.map((item, index) => {
-      const {author, create_at, reply, topic, type} = item
-      const {last_reply_at,id, title} = topic
+      const {author, create_at, topic, type} = item
+      const {last_reply_at, id, title} = topic
       return (
         <div key={id + index} className="contant fadeInUp animated">
           <Link className="title" to={`/detail/${id}`}>
@@ -81,7 +80,10 @@ const Title = ({messages}) => {
               <p style={{marginBottom: '13px'}}>
                 <span className="loginname">{author.loginname}</span>
               </p>
-              <span style={{marginLeft: '10px'}}>在{formatTime(create_at)}{type==='at'?'@的你':'回复了你'}</span>
+              <span style={{marginLeft: '10px'}}>
+                在{formatTime(create_at)}
+                <span style={{color: 'red'}}>{type === 'at' ? '@' : '回复'}</span>了你
+              </span>
               <span className="last_reply_at">{formatTime(last_reply_at)}</span>
             </div>
           </div>
@@ -89,7 +91,7 @@ const Title = ({messages}) => {
       )
     })
   } else {
-    return <div>暂无消息</div>
+    return <div style={{textAlign: 'center'}}>暂无消息</div>
   }
 }
 export default connect(mapStateToProps)(Message)

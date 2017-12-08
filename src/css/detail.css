@@ -1,17 +1,18 @@
 .guide {
     position: fixed;
+    width: 100%;
     top: 0px;
     -webkit-animation: move-down 0.3s ease-out;
     animation: move-down 0.3s ease-out;
     height: 45px;
-    background: #108ee9;
+    background: #3f3f3f;
     text-align: center;
     line-height: 45px;
     font-size: 1.8rem;
     font-weight: bolder;
     color: #fff;
     z-index: 2;
-    box-shadow: 0 0 4px #109ff9;
+    box-shadow: 0 0 4px #222;
 }
 
 @keyframes move-down {
@@ -26,16 +27,23 @@
 }
 
 .h_on {
-    background: #106ee9;
-    border-radius: 8px;
+    color: #108ee9;
+    border-bottom: 3px solid #108ee9;
+}
+
+.h_on a {
+    color: #108ee9 !important;
 }
 
 .f_on {
     width: 96%;
     margin: 0 auto;
-    border-radius: 8px;
-    background: #106ee9;
+    border-radius: 2px;
     display: block;
+}
+
+.f_on a {
+    color: #108ee9 !important;
 }
 
 .back {
@@ -47,11 +55,17 @@
     font-size: 2.2rem;
 }
 
-.back:focus {
-    box-shadow: 0 0 5px #101ee9;
+.last_reply_at,
+.visted-count,
+.create_at {
+    color: rgba(0, 0, 0, 0.8);
 }
 
-.vistedCount {
+.create_at {
+    margin-left: 10px;
+}
+
+.visted-count {
     float: right;
     margin-right: 10px;
 }
@@ -215,5 +229,12 @@
     }
     .markdown-text {
         margin: 10px 10px 10px 50px;
+    }
+}
+
+@media screen and (min-width: 1081px) {
+    .guide,
+    #logo {
+        width: 40%;
     }
 }

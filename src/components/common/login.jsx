@@ -38,7 +38,7 @@ const Login = props => {
         type="password"
         id="submit-token"
         placeholder="请输入access_token"
-        defaultValue="0356a904-b9cf-4ab0-9a03-2cac15a9e1b9"
+        defaultValue="0356a904-b9cf-4ab0-9cac15a9e1b9"
       />
       <br />
       <Button id="submit-btn" onClick={login}>

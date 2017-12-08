@@ -86,6 +86,7 @@ export const Footer = props => {
     };
 
     const {location} = props; //解决刷新后恢复现场问题
+
     return (
         <footer>
             <ul id="footer">
@@ -94,7 +95,7 @@ export const Footer = props => {
                         <li
                             key={index}
                             onClick={addClass}   
-                            className={data.path === location.pathname + location.search
+                            className={data.path === location.pathname
                             ? "f_on"
                             : ""}>
                             {/*默认第一个*/}

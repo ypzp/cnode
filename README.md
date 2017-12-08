@@ -7,7 +7,7 @@
 学习react一个多月了，总想写点什么练练手，偶然间发现了cnode社区<br/>
 更意外的是该社区还开放了大部分的接口给前端的小伙伴们练习<br/>
 [社区api文档地址](https://cnodejs.org/api)在这里感谢cnode社区开发的接口<br/>
-技术栈**react**+**react-router**+**redux**，中间件暂时没时间学,欢迎大佬们推荐<br/>
+技术栈**react**+**react-router**+**redux**<br/>
 新手写的项目应该对新手很友好，喜欢的朋友可以star，不懂的可以提issue
 [项目线上地址](http:cnode.top:5000)
 #### 首页

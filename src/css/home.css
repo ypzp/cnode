@@ -1,37 +1,39 @@
 #header {
     position: fixed;
-    top: 0px;
+    top: 40px;
     width: 100%;
-    background: #108ee9;
+    background: #fff;
     text-align: center;
-    color: #ffffff;
+    color: #000;
     z-index: 2;
-    box-shadow: 0 0 4px #109ff9;
+    border-bottom: 1px solid #eee;
 }
 
 #header a {
-    color: #fff;
+    color: #000 ;
     text-decoration: none;
 }
 
 #header li {
     list-style-type: none;
-    width: 20%;
+    width: 17%;
+    margin: 0 1.5%;
     line-height: 40px;
     float: left;
 }
 
 #footer a {
-    color: #fff;
+    color: #444;
+    font-weight:500;
     text-decoration: none;
-    font-size: 1.4rem;
+    font-size: 1.0rem;
 }
 
 #footer {
     position: fixed;
     bottom: 0px;
     width: 100%;
-    background: #108ee9;
+    background: #fff;
     text-align: center;
     color: #ffffff;
 }
@@ -47,7 +49,19 @@
     display: block;
     margin: 0px 0px -8px 0px;
 }
-
+#logo{
+    width: 100%;
+    height: 40px;
+    position: fixed;
+    top: 0;
+    background: #3f3f3f;
+    z-index: 999;
+}
+#logo img{
+    width: 100px;
+    height: 35px;
+    margin-left: 20px
+}
 .user-view-title {
     color: #000000;
     line-height: 40px;
@@ -119,8 +133,8 @@
         width: 40%;
     }
     body {
-        width: 40%;
-        margin: 0 auto;
+        width: 40% !important;
+        margin: 0 auto !important;
     }
     html {
         background: rgba(50, 50, 50, 1);
@@ -128,9 +142,6 @@
     .icon-backtop {
         right: 31%;
         bottom: 50px;
-    }
-    .guide {
-        width: 40%;
     }
     #reply-textArea {
         width: 40%;

@@ -2,7 +2,13 @@ import React, {Component} from 'react'
 import AsyncComponent from './route/asyncComponent'
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import {BackTop} from './common/layout'
-
+/*import Title from './title'
+import Detail from './detail'
+import UserView from './userView'
+import MyView from './mine'
+import Message from './message'
+import Login from './common/login'
+import Report from './report'*/
 
 const item = ['/topics', '/topics?tab=good', '/topics?tab=share', '/topics?tab=ask', '/topics?tab=job']
 const Title = AsyncComponent(() => import('./title'))

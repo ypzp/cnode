@@ -11,8 +11,9 @@ class Mine extends Component {
   state = { position: '' }
   componentWillMount() {
     this.getPosition();
-    const { UserLogin } = this.props
-    request(`/accesstoken`, {accesstoken: sessionStorage.AccessToken}).then(res => {
+    const { UserLogin, OFF } = this.props
+    if(!OFF){
+      request(`/accesstoken`, {accesstoken: sessionStorage.AccessToken}).then(res => {
       if (res !== undefined)
         request(`/user/${res.loginname}`)
           .then(res => {
@@ -23,6 +24,8 @@ class Mine extends Component {
             message.error('网络错误')
           })
     })
+    }
+    
   }
   getPosition = () => {
     fetch('http://freegeoip.net/json/')
@@ -30,7 +33,7 @@ class Mine extends Component {
         return res.json()
       })
       .then(res => {
-        fetch(`http://restapi.amap.com/v3/ip?key=&ip=${res.ip}`)
+        fetch(`http://restapi.amap.com/v3/ip?key=c5c368adb8bb95aac7cab8099f2b716c&ip=${res.ip}`)
           .then(res => {
             return res.json()
           })
@@ -64,7 +67,7 @@ class Mine extends Component {
             {position}
           </i>
           <Popconfirm title="确认退出?" okText="退出" cancelText="取消" onConfirm={this.logout}>
-            <a href="javascript:;;" style={{ position: 'absolute', right: '15px', color: '#fff' }} className="iconfont icon-tuichu" />
+            <a href="javascript:void(0)" style={{ position: 'absolute', right: '15px', color: '#fff' }} className="iconfont icon-tuichu" />
           </Popconfirm>
         </Guide>
         <UserInfo {...UserID} />

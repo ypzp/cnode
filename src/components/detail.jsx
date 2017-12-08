@@ -139,7 +139,7 @@ const User = props => {
       </Link>
       <p style={{marginBottom: '13px'}}>
         <span className="loginname">{data.author.loginname}</span>
-        <span className="vistedCount">阅读:{data.visit_count}</span>
+        <span className="visted-count">阅读:{data.visit_count}</span>
       </p>
       <span style={{marginLeft: '5px'}}>{formatTime(data.create_at)}</span>
       <span className="last_reply_at">{formatTime(data.last_reply_at)}</span>
@@ -219,7 +219,7 @@ class Ups extends Component {
     const {action} = this.state
     const {length} = this.props
     const style = {
-      color: action === 'up' ? '#000' : 'rgba(0,0,0,0.65)',
+      color: action === 'up' ? '#108ee9' : 'rgba(0,0,0,0.65)',
       fontWeight: action === 'up' ? '600' : '400'
     }
     return (
@@ -250,11 +250,13 @@ class Reply extends Component {
   send = () => {
     const {content} = this.state
     const {id, accesstoken, reply_id} = this.props
+    console.log(reply_id)
     if (accesstoken !== '') {
       if (content.trim() !== '')
         request(`/topic/${id}/replies`, {
           accesstoken: accesstoken,
-          content: content
+          content: content,
+          reply_id:reply_id
         }).then(res => {
           if (res.success !== undefined && res.success === true) this.setState({status: false})
           message.success('发送成功')

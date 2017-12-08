@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import AsyncComponent from './route/asyncComponent'
+import AsyncComponent from './AsyncComponent/asyncComponent'
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import {BackTop} from './common/layout'
 /*import Title from './title'

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Tabs} from 'antd'
 import {Link} from 'react-router-dom'
 import {formatTime} from './common/tool'
-import {Footer, Tip, Guide} from './common/layout'
+import {Footer, Guide} from './common/layout'
 import request from '../util/request'
 
 const TabPane = Tabs.TabPane
@@ -30,29 +30,20 @@ class Message extends Component {
   }
 
   render() {
-    const {location, USER_OFF, history} = this.props
+    const {location} = this.props
     const {has_read_messages, hasnot_read_messages} = this.state
     return (
-      <div>
-        {USER_OFF ? (
-          <div>
-            <Guide history={history} />
-            <Tip history={history} />
-          </div>
-        ) : (
-          <div style={{marginTop: '45px', marginBottom: '50px'}}>
-            <Guide title={'消息'} />
-            <Tabs defaultActiveKey="has_read">
-              <TabPane tab="未读消息" key="has_read">
-                <Title messages={hasnot_read_messages} />
-              </TabPane>
-              <TabPane tab="已读消息" key="hasnot_read">
-                <Title messages={has_read_messages} />
-              </TabPane>
-            </Tabs>
-            <Footer location={location} />
-          </div>
-        )}
+      <div style={{marginTop: '45px', marginBottom: '50px'}}>
+        <Guide title={'消息'} />
+        <Tabs defaultActiveKey="has_read">
+          <TabPane tab="未读消息" key="has_read">
+            <Title messages={hasnot_read_messages} />
+          </TabPane>
+          <TabPane tab="已读消息" key="hasnot_read">
+            <Title messages={has_read_messages} />
+          </TabPane>
+        </Tabs>
+        <Footer location={location} />
       </div>
     )
   }

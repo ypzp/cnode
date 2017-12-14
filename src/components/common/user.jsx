@@ -9,13 +9,13 @@ const UserInfo = props => {
   return (
     <div className="user">
       <img src={props.avatar_url} className="user-view-avator" alt={props.loginname} />
-      用户名:&nbsp;{props.loginname}
+      <span className='user-props'>用户名</span>:&nbsp;{props.loginname}
       <span>
         <br />
-        <span>github:&nbsp;{props.githubUsername}</span>
+        <span><span className='user-props'>github</span>:&nbsp;{props.githubUsername}</span>
         <br />
         <span>
-          积分:&nbsp;{props.score}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注册于:&nbsp;{formatTime(props.create_at)}
+          <span className='user-props'>积分</span>:&nbsp;{props.score}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='user-props'>注册于</span>:&nbsp;{formatTime(props.create_at)}
         </span>
       </span>
       <br />
@@ -25,8 +25,7 @@ const UserInfo = props => {
 
 const Recent = props => {
   return (
-    <Tabs style={{ marginBottom: '40px' }}
-    >
+    <Tabs style={{marginBottom: '40px'}}>
       <TabPane tab="最近创建的话题" key="recent_topics">
         {props.recent_topics.map((data, index) => {
           return (

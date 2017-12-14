@@ -16,8 +16,8 @@ class Title extends Component {
   reload = () => {
     const {pathname, search} = this.props.location //获取当前页的路径
     const type = pathname + search
-    const {data, page} = this.state
-    if (loadMore()) {
+    const {data, page, loadmore} = this.state
+    if (loadMore() && !loadmore) {
       this.setState({loadmore: true})
       request(getUrl(type, page)).then(res => {
         this.setState({
@@ -44,7 +44,7 @@ class Title extends Component {
         this.setState({data: res.data, page: 2})
       })
     }
-    if (localStorage[type] !== undefined)
+    if (localStorage[type])
       //从文章详情页返回到原页面
       this.setState({
         data: JSON.parse(localStorage.getItem(type))
@@ -138,7 +138,7 @@ export const EachTitle = props => {
 }
 
 const getUrl = (type, page) => {
-  if (page === undefined) return type === '/topics' ? `${type}?limit=20` : `${type}&limit=20`
+  if (!page) return type === '/topics' ? `${type}?limit=20` : `${type}&limit=20`
   else return type === '/topics' ? `${type}?page=${page}&limit=5` : `${type}&page=${page}&limit=5`
 }
 

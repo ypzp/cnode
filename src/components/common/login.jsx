@@ -6,11 +6,11 @@ import request from '../../util/request'
 import {UserLogin, GetAccessToekn, SetUserStatus} from '../../actions/action'
 
 const Login = props => {
-  const {UserLogin, GetAccessToken, SetUserStatus} = props
+  const {UserLogin, GetAccessToken, SetUserStatus, location, history} = props
   const login = () => {
     const access_token = document.getElementById('submit-token').value
     request(`/accesstoken`, {accesstoken: access_token}).then(res => {
-      if (res !== undefined)
+      if (res)
         request(`/user/${res.loginname}`)
           .then(res => {
             UserLogin(res.data)
@@ -21,7 +21,7 @@ const Login = props => {
             sessionStorage.setItem('AccessToken', access_token)
             message.info('登陆成功，正在跳转')
             setTimeout(() => {
-              props.history.go(-1)
+              history.push(location.state.from.pathname)
             }, 400)
           })
           .catch(error => {

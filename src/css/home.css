@@ -73,7 +73,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
+.user-props{
+    font-size: 1.4rem;
+    font-weight: 600;
+}
 .index {
     transition: all 0.5s;
     -moz-transition: all 0.5s;

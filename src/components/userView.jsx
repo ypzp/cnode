@@ -34,7 +34,7 @@ class UserView extends Component {
     return (
       <div>
         <Guide history={this.props.history} title={data.loginname ? `${data.loginname}的个人中心` : ''} />
-        {data.loginname === undefined ? (
+        {!data.loginname ? (
           <Spin loading={true} />
         ) : (
           <div className="user-view">

@@ -67,7 +67,7 @@ class Detail extends Component {
         accesstoken: accesstoken,
         content: text
       }).then(res => {
-        if (res.success !== undefined && res.success === true) {
+        if (res.success && res.success === true) {
           this.setState({text: ''})
           message.info('发送成功')
           this.update();
@@ -81,8 +81,8 @@ class Detail extends Component {
     return (
       <div>
         <Guide history={this.props.history} title={data.title} />
-        {data.content === undefined ? (
-          <Spin loading={data.content === undefined} />
+        {!data.content ? (
+          <Spin loading={!data.content} />
         ) : (
           <div>
             <User data={data} />
@@ -258,7 +258,7 @@ class Reply extends Component {
           content: content,
           reply_id:reply_id
         }).then(res => {
-          if (res.success !== undefined && res.success === true) this.setState({status: false})
+          if (res.success && res.success === true) this.setState({status: false})
           message.success('发送成功')
           this.props.update();   //发送完数据更新
         })

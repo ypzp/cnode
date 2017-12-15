@@ -13,7 +13,7 @@ function checkStatus(res) {
 }*/
 
 export default function request(url, data) {
-  if (data === undefined)
+  if (!data)
     return fetch(`https://cnodejs.org/api/v1${url}`)
       .then(res => {
         return checkStatus(res)

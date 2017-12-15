@@ -32,7 +32,7 @@ module.exports = {
         exclude: /^node_modules$/,
         use: [
           {
-            loader: 'file-loader?limit=8192&name=image/[hash:8].[name].[ext]'
+            loader: 'file-loader?limit=20480&name=image/[hash:8].[name].[ext]'
           }
         ]
       }

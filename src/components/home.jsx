@@ -46,7 +46,11 @@ class Home extends Component {
     )
   }
 }
-
+/**
+ * 封装Route，跳转前判断本地是否存在token如果不存在则重定向至指定
+ * @param {String} path - 原始Route的path
+ * @param {Object} component - 接受组件参数
+ */
 const LoginComponent = ({render: Render, ...data}) => {
   return (
     <Route

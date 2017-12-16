@@ -1,8 +1,11 @@
 .contant {
     width: 100%;
     display: inline-block;
-    padding: 5px 5px 8px;
-    margin: 3px 0;
+    padding: 4px 5px;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    margin: 4px 0;
     border-bottom: 1px #eee solid;
 }
 .contant i {
@@ -22,6 +25,7 @@
 .avator {
     width: 45px;
     float: left;
+    border: 1px #eee solid;
     border-radius: 10%;
 }
 

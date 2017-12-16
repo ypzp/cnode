@@ -7,7 +7,7 @@ import request from '../util/request'
 import {UserLogin, GetAccessToekn, SetUserStatus} from '../actions/action'
 
 class Mine extends Component {
-  state = {position: ''}
+  state = {position: '北京市'}
   componentWillMount() {
     this.getPosition()
     const {UserLogin, OFF} = this.props
@@ -87,3 +87,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Mine)
+

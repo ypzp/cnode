@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import './index.css'
-import './iconfont/iconfont.css'
 import 'antd/dist/antd.css'
 import './css/antd.css'
 import './css/index.css'

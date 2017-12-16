@@ -9,16 +9,13 @@ const UserInfo = props => {
   return (
     <div className="user">
       <img src={props.avatar_url} className="user-view-avator" alt={props.loginname} />
-      <span className='user-props'>用户名</span>:&nbsp;{props.loginname}
-      <span>
-        <br />
-        <span><span className='user-props'>github</span>:&nbsp;{props.githubUsername}</span>
-        <br />
-        <span>
-          <span className='user-props'>积分</span>:&nbsp;{props.score}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className='user-props'>注册于</span>:&nbsp;{formatTime(props.create_at)}
-        </span>
-      </span>
+      <span className="user-props">{props.loginname}</span>
       <br />
+      <span>
+        <span className="user-props">积分</span>:&nbsp;{props.score}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="user-props">
+          注册于
+        </span>:&nbsp;{formatTime(props.create_at)}
+      </span>
     </div>
   )
 }

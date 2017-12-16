@@ -141,7 +141,7 @@ const User = props => {
         <span className="loginname">{data.author.loginname}</span>
         <span className="visted-count">阅读:{data.visit_count}</span>
       </p>
-      <span style={{marginLeft: '5px'}}>{formatTime(data.create_at)}</span>
+      <span style={{marginLeft: '10px'}}>{formatTime(data.create_at)}</span>
       <span className="last_reply_at">{formatTime(data.last_reply_at)}</span>
     </div>
   )

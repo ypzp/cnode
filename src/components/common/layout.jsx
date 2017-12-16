@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import {ScrollTop} from './tool'
 
 export const Tip = props => {
   return (
@@ -107,31 +108,32 @@ export const Footer = props => {
 
 export class BackTop extends Component {
   state = {
-    isShow: false
+    visible: false
   }
   back = () => {
-    document.body.scrollTop = 1000
+    const Document = document.documentElement
+    Document.scrollTop = 1000
     let Interval = setInterval(() => {
-      if (document.body.scrollTop > 25) document.body.scrollTop -= 20
+      if (Document.scrollTop > 25) Document.scrollTop -= 20
       else {
-        document.body.scrollTop = 4
+        Document.scrollTop = 4
         clearInterval(Interval)
       }
-    }, 1)
+    }, 1) 
   }
   show = () => {
-    if (document.body.scrollTop > document.body.clientHeight && !this.state.isShow) this.setState({isShow: true})
-    else if (document.body.scrollTop < document.body.clientHeight && this.state.isShow) this.setState({isShow: false})
+    if (ScrollTop() > window.innerHeight && !this.state.visible) this.setState({visible: true})
+    else if (ScrollTop() < window.innerHeight && this.state.visible) this.setState({visible: false})
   }
   componentDidMount() {
-    window.addEventListener('scroll', this.show)
+    document.addEventListener('scroll', this.show)
   }
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.show)
+    document.removeEventListener('scroll', this.show)
   }
   render() {
-    const {isShow} = this.state
-    return isShow ? <div className="iconfont icon-backtop" onClick={this.back} /> : ''
+    const {visible} = this.state
+    return visible ? <div className="iconfont icon-backtop" onClick={this.back} /> : null
   }
 }
 

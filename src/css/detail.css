@@ -33,6 +33,7 @@
 
 .h_on a {
     color: #108ee9 !important;
+    font-size: 16px;
 }
 
 .f_on {
@@ -83,9 +84,9 @@
 }
 
 .loginname {
-    color: #80bd01;
+    color: #7ab005;
     cursor: pointer;
-    margin: 0 5px;
+    margin: 0 10px;
 }
 
 .user {
@@ -94,10 +95,22 @@
     background: #f8f8ff;
 }
 
+.prettyprint {
+    line-height: 1.5 !important;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    background: #f6f8fa;
+    border-radius: 5px;
+    font-size: 1.3rem;
+    padding: 0 5px;
+    font-weight: 600;
+    overflow-x: auto;
+}
+
 .topic-text {
     margin: 10px 5px;
-    color: rgba(0, 0, 0, 0.8) !important;
+    color: #2c3e50 !important;
     font-size: 1.35rem;
+    line-height: 2;
 }
 
 .topic-text img {
@@ -108,6 +121,10 @@
 
 .topic-text table {
     font-size: 1.2rem;
+}
+
+.topic-text p {
+    margin: 10px 0;
 }
 
 .topic-text code {
@@ -121,14 +138,23 @@
     margin: 5px 0;
 }
 
-.topic-text pre {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    background: #f6f8fa;
-    border-radius: 5px;
-    font-size: 1.3rem;
-    border: 1px #ccc dashed;
-    padding: 0 5px;
-    overflow-x: auto;
+.topic-text li {
+    margin-left: 20px;
+}
+
+.topic-text>ul {
+    margin-top: 5px;
+    list-style-type: initial;
+}
+
+.topic-text>ul ul {
+    margin-top: 5px;
+    list-style-type: circle;
+}
+
+.topic-text ol {
+    margin-top: 5px;
+    list-style-type: decimal;
 }
 
 .topic-reply-count {
@@ -156,7 +182,7 @@
 .markdown-text {
     font-size: 1.3rem;
     margin: 5px 10px 10px 65px;
-    line-height: 1.6;
+    line-height: 1.8;
     word-break: break-all;
     color: rgba(0, 0, 0, 0.8);
 }

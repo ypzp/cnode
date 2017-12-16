@@ -4,6 +4,7 @@ import {Popconfirm, message} from 'antd'
 import {Footer, Guide} from './common/layout'
 import {UserInfo, Recent} from './common/user'
 import request from '../util/request'
+import {delCookie} from './common/tool'
 import {UserLogin, GetAccessToekn, SetUserStatus} from '../actions/action'
 
 class Mine extends Component {
@@ -48,6 +49,7 @@ class Mine extends Component {
     sessionStorage.removeItem('USER_ON')
     sessionStorage.removeItem('Status')
     sessionStorage.removeItem('AccessToken')
+    //delCookie('access_token')
     this.props.history.push('/')
   }
   render() {

@@ -66,11 +66,12 @@ export const Header = props => {
 
 export const Footer = props => {
   const addClass = e => {
+    e.preventDefault()
     let li = document.getElementById('footer').children
     if (
       e.target.parentNode.id !== 'footer' &&
-      e.target.className.indexOf('iconfont') < 0 &&
-      e.target.parentNode.className !== 'f_0'
+      e.target.className.indexOf('iconfont') < 0 && 
+      e.target.className.indexOf('f_on') < 0
     ) {
       //避免重复点击执行 防止点击li标签也执行
       for (let i = 0; i < li.length; ++i) {
@@ -83,8 +84,10 @@ export const Footer = props => {
         if (li[i].className === 'f_on') li[i].removeAttribute('class')
       }
       e.target.className = 'f_on'
-    }
+    }  
+
   }
+
 
   const {location} = props //解决刷新后恢复现场问题
 
@@ -95,8 +98,8 @@ export const Footer = props => {
           return (
             <li key={index} onClick={addClass} className={data.path === location.pathname ? 'f_on' : ''}>
               {/*默认第一个*/}
-              <Link to={data.path} className={data.class} style={{display: 'grid'}}>
-                {data.text}
+              <Link to={data.path} className={data.class}>
+                <span className='linkname'>{data.text}</span>
               </Link>
             </li>
           )
@@ -111,7 +114,7 @@ export class BackTop extends Component {
     visible: false
   }
   back = () => {
-    const Document = document.documentElement
+    const Document = document.documentElement ? document.body : document.documentElement
     Document.scrollTop = 1000
     let Interval = setInterval(() => {
       if (Document.scrollTop > 25) Document.scrollTop -= 20
@@ -119,7 +122,7 @@ export class BackTop extends Component {
         Document.scrollTop = 4
         clearInterval(Interval)
       }
-    }, 1) 
+    }, 0)
   }
   show = () => {
     if (ScrollTop() > window.innerHeight && !this.state.visible) this.setState({visible: true})

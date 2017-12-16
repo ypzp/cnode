@@ -23,14 +23,16 @@
 }
 
 #footer a {
-    border-top: 1px #ccc solid;
     color: #444;
     font-weight: 500;
     text-decoration: none;
     font-size: 1.0rem;
+    line-height: 1;
+    display: block;
 }
 
 #footer {
+    border-top: 1px #ccc solid;
     position: fixed;
     bottom: 0px;
     width: 100%;
@@ -42,13 +44,35 @@
 #footer li {
     list-style-type: none;
     width: 25%;
+    padding-top: 5px;
     float: left;
 }
 
-#footer i {
-    font-size: 20px;
+.linkname {
+    margin-top: 5px;
+    margin-bottom: 3px;
     display: block;
-    margin: 0px 0px -8px 0px;
+}
+
+.h_on {
+    color: #108ee9;
+    border-bottom: 3px solid #108ee9;
+}
+
+.h_on a {
+    color: #108ee9 !important;
+    font-size: 16px;
+}
+
+.f_on {
+    width: 96%;
+    margin: 0 auto;
+    border-radius: 2px;
+    display: block;
+}
+
+.f_on a {
+    color: #108ee9 !important;
 }
 
 #logo {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {Footer, Header} from './common/layout'
-import {ScrollTop, WindowHeight, ScrollHeight, formatTime} from './common/tool'
+import {toBottom, ScrollTop, formatTime} from './common/tool'
 import request from '../util/request'
 import {Spin} from './common/spin'
 
@@ -9,7 +9,6 @@ class Title extends Component {
   state = {
     data: [],
     page: 2,
-    refresh: false,
     loadmore: false
   }
   //page=2是因为初始的时候已经请求过一页了
@@ -25,12 +24,6 @@ class Title extends Component {
           page: page + 1,
           loadmore: false
         })
-      })
-    }
-    if (Refresh()) {
-      this.setState({refresh: true})
-      request(getUrl(type)).then(res => {
-        this.setState({data: res.data, page: 2, refresh: false})
       })
     }
   }
@@ -60,7 +53,7 @@ class Title extends Component {
 
     if (
       type.indexOf(this.props.location.search) < 0 && //点击其他页面且数据不存在重新请求
-      localStorage.getItem(type) === null 
+      localStorage.getItem(type) === null
     ) {
       request(getUrl(type)).then(res => {
         localStorage.setItem(type, JSON.stringify(res.data))
@@ -77,21 +70,20 @@ class Title extends Component {
     window.removeEventListener('scroll', this.reload)
   }
   render() {
-    const {data, refresh, loadmore} = this.state
+    const {data, loadmore} = this.state
     const style = {
-      marginTop: refresh === true ? '120px' : '82px',
       marginBottom: loadmore === true ? '120px' : '40px'
     }
 
     return (
       <div className="index" style={style}>
         <div id="logo">
-          <img src="https://o4j806krb.qnssl.com/public/images/cnodejs_light.svg" alt='cnode标志' />
+          <img src="https://o4j806krb.qnssl.com/public/images/cnodejs_light.svg" alt="cnode标志" />
         </div>
         <Header location={this.props.location} />
-        <Spin loading={refresh} /> {data.length === 0 ? <Spin loading={true} /> : <EachTitle data={data} />}
-        <div style={{height: '50px'}}>
-          <Spin loading={loadmore} style={{bottom: '45px'}} />
+        {data.length === 0 ? <Spin loading={true} /> : <EachTitle data={data} />}
+        <div style={{height: '55px'}}>
+          <Spin loading={loadmore} style={{bottom: '50px'}} />
         </div>
         <Footer location={this.props.location} />
       </div>
@@ -144,13 +136,9 @@ const getUrl = (type, page) => {
 
 let currHeight = 0,
   prevHeight = 0
-const Refresh = () => {
+const loadMore = () => {
   prevHeight = currHeight
   currHeight = ScrollTop()
-  return currHeight < prevHeight && currHeight < 1.5
+  return currHeight > prevHeight && toBottom()
 }
-const loadMore = () => {
-  return currHeight > prevHeight && Math.abs(ScrollTop() + WindowHeight() - ScrollHeight()) < 3
-}
-
 export default Title

@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Input, message, Button} from 'antd'
 import {Guide, Tip} from './common/layout'
 import {Spin} from './common/spin'
-import {loadMore, formatTime} from './common/tool'
+import {toBottom, formatTime} from './common/tool'
 import request from '../util/request'
 import {setTimeout} from 'timers'
 
@@ -24,7 +24,7 @@ class Detail extends Component {
     History = this.props.history
   }
   reload = () => {
-    if (loadMore()) {
+    if (toBottom()) {
       this.setState({
         floor: this.state.floor + 10
       })

@@ -8,6 +8,7 @@ import {UserLogin, GetAccessToekn, SetUserStatus} from '../../actions/action'
 
 const Login = props => {
   const {UserLogin, GetAccessToken, SetUserStatus, location, history} = props,
+
     login = () => {
       let access_token = document.getElementById('submit-token').value
       if (getCookie('access_token')) access_token = getCookie('access_token')

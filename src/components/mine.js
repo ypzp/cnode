@@ -49,7 +49,7 @@ class Mine extends Component {
     sessionStorage.removeItem('USER_ON')
     sessionStorage.removeItem('Status')
     sessionStorage.removeItem('AccessToken')
-    //delCookie('access_token')
+    delCookie('access_token')
     this.props.history.push('/')
   }
   render() {

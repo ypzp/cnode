@@ -4,37 +4,24 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   context: __dirname + '/src',
-  devtool: 'cheap-module-source-map', // 为了可以在控制台跟踪到自己的代码位置，精确到行
+  devtool: 'inline-eval-source-map',
   entry: {
     main: './index',
-    vendor: ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux', 'antd'] //分离react
-  }, //入口文件
+    vendor: ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux', 'antd']
+  },
   resolve: {
-    extensions: ['.js', '.jsx'] //解决webpack无法识别jsx
+    extensions: ['.js', '.jsx']
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)?$/, //正则匹配js,然后解析
-        exclude: /(node_modules)/, //跳过
+        test: /\.(js|jsx)?$/,
+        exclude: /(node_modules)/,
         loader: 'babel-loader?cacheDirectory=true'
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'] //引入css模块
-      },
-      {
-        test: /\.svg/,
-        loader: 'svg-url-loader?limit=10000' //svg图片
-      },
-      {
-        test: /\.(eot|woff|svg|ttf|woff2|gif|appcache)(\?|$)/,
-        exclude: /^node_modules$/,
-        use: [
-          {
-            loader: 'file-loader?limit=20480&name=image/[hash:8].[name].[ext]'
-          }
-        ]
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
@@ -57,7 +44,7 @@ module.exports = {
     /*new webpack.optimize.UglifyJsPlugin()*/
   ],
   output: {
-    path: __dirname + '/dist', //输出文件
+    path: __dirname + '/dist',
     filename: '[name].[hash].js',
     publicPath: '/',
     chunkFilename: '[name].[chunkhash].chunk.js'

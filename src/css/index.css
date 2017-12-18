@@ -6,7 +6,7 @@
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2);
     box-shadow: 0 1px 3px rgba(0,0,0,.2);
     margin: 4px 0;
-    border-bottom: 1px #eee solid;
+    border-radius: 5px;
 }
 .contant i {
     float: left;

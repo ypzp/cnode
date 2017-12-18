@@ -111,6 +111,7 @@
 
 .index {
     background: #efeff4;
+    padding-top: 82px;
     transition: all 0.5s;
     -moz-transition: all 0.5s;
     /* Firefox 4 */

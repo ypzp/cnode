@@ -56,11 +56,11 @@ const LoginComponent = ({render: Render, ...data}) => {
     <Route
       {...data}
       render={props =>
-        !sessionStorage.AccessToken ? (        //没有登陆就跳转登陆
+        !sessionStorage.AccessToken ? ( //没有登陆就跳转登陆
           <Redirect
             to={{
               pathname: '/my/login',
-              state: {from: props.location}    //获取当前的路径，方便登陆完跳转回来
+              state: {from: props.location} //获取当前的路径，方便登陆完跳转回来
             }}
           />
         ) : (

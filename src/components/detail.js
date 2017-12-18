@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Input, message, Button} from 'antd'
 import {Guide, Tip} from './common/layout'
 import {Spin} from './common/spin'
-import {toBottom, formatTime} from './common/tool'
+import {toBottom, formatTime, debounce} from './common/tool'
 import request from '../util/request'
 import {setTimeout} from 'timers'
 
@@ -31,21 +31,20 @@ class Detail extends Component {
     }
   }
   componentDidMount() {
-
     document.body.scrollTop = 0 //不加这个每次进去scroll都是上次浏览过的
     /**
      * 请求数据
      */
     this.update()
-    window.addEventListener('scroll', this.reload)
+    window.addEventListener('scroll', debounce(this.reload, 100, false))
   }
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.reload)
+    window.removeEventListener('scroll', debounce(this.reload, 100, false))
   }
   /**
    * 回复消息后更新数据
    */
-  update = () => {  
+  update = () => {
     const {id} = this.props.match.params
     request(`/topic/${id}`)
       .then(res => {
@@ -70,7 +69,7 @@ class Detail extends Component {
         if (res.success && res.success === true) {
           this.setState({text: ''})
           message.info('发送成功')
-          this.update();
+          this.update()
         }
       })
     else message.error('总要写点什么吧')
@@ -114,10 +113,7 @@ class Detail extends Component {
                   onChange={this.handleText}
                   value={this.state.text}
                 />
-                <Button
-                  id="reply-btn"
-                  onClick={this.send}
-                >
+                <Button id="reply-btn" onClick={this.send}>
                   回复
                 </Button>
               </div>
@@ -250,17 +246,16 @@ class Reply extends Component {
   send = () => {
     const {content} = this.state
     const {id, accesstoken, reply_id} = this.props
-    console.log(reply_id)
     if (accesstoken !== '') {
       if (content.trim() !== '')
         request(`/topic/${id}/replies`, {
           accesstoken: accesstoken,
           content: content,
-          reply_id:reply_id
+          reply_id: reply_id
         }).then(res => {
           if (res.success && res.success === true) this.setState({status: false})
           message.success('发送成功')
-          this.props.update();   //发送完数据更新
+          this.props.update() //发送完数据更新
         })
       else message.warning('总要写点什么吧')
     } else {

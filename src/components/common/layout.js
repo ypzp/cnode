@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {ScrollTop} from './tool'
+import {ScrollTop, debounce} from './tool'
 
 export const Tip = props => {
   return (
@@ -70,7 +70,7 @@ export const Footer = props => {
     let li = document.getElementById('footer').children
     if (
       e.target.parentNode.id !== 'footer' &&
-      e.target.className.indexOf('iconfont') < 0 && 
+      e.target.className.indexOf('iconfont') < 0 &&
       e.target.className.indexOf('f_on') < 0
     ) {
       //避免重复点击执行 防止点击li标签也执行
@@ -84,10 +84,8 @@ export const Footer = props => {
         if (li[i].className === 'f_on') li[i].removeAttribute('class')
       }
       e.target.className = 'f_on'
-    }  
-
+    }
   }
-
 
   const {location} = props //解决刷新后恢复现场问题
 
@@ -99,7 +97,7 @@ export const Footer = props => {
             <li key={index} onClick={addClass} className={data.path === location.pathname ? 'f_on' : ''}>
               {/*默认第一个*/}
               <Link to={data.path} className={data.class}>
-                <span className='linkname'>{data.text}</span>
+                <span className="linkname">{data.text}</span>
               </Link>
             </li>
           )
@@ -114,10 +112,10 @@ export class BackTop extends Component {
     visible: false
   }
   back = () => {
-    const Document = document.documentElement ? document.body : document.documentElement
-    Document.scrollTop = 1000
+    const Document = !document.documentElement.scrollTop ? document.body : document.documentElement,
+      step = Document.scrollTop / 100
     let Interval = setInterval(() => {
-      if (Document.scrollTop > 25) Document.scrollTop -= 20
+      if (Document.scrollTop > step) Document.scrollTop -= step
       else {
         Document.scrollTop = 4
         clearInterval(Interval)
@@ -129,10 +127,10 @@ export class BackTop extends Component {
     else if (ScrollTop() < window.innerHeight && this.state.visible) this.setState({visible: false})
   }
   componentDidMount() {
-    document.addEventListener('scroll', this.show)
+    document.addEventListener('scroll', debounce(this.show, 100, false))
   }
   componentWillUnmount() {
-    document.removeEventListener('scroll', this.show)
+    document.removeEventListener('scroll', debounce(this.show, 100, false))
   }
   render() {
     const {visible} = this.state

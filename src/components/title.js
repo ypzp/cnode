@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {Footer, Header} from './common/layout'
-import {toBottom, ScrollTop, formatTime} from './common/tool'
+import {toBottom, ScrollTop, formatTime, debounce} from './common/tool'
 import request from '../util/request'
 import {Spin} from './common/spin'
 
@@ -43,14 +43,13 @@ class Title extends Component {
         data: JSON.parse(localStorage.getItem(type))
       }) //本地缓存，避免多次请求浪费资源,恢复现场
 
-    window.addEventListener('scroll', this.reload)
+    window.addEventListener('scroll', debounce(this.reload,100,false))
   }
 
   componentWillReceiveProps(nextProps) {
     document.body.scrollTop = document.body.scrollTop !== 0 ? document.body.scrollTop : 1
     const {pathname, search} = nextProps.location //不能使用this.props,在这个生命周期前并未更新
     const type = pathname + search //获取当前页的路径
-
     if (
       type.indexOf(this.props.location.search) < 0 && //点击其他页面且数据不存在重新请求
       localStorage.getItem(type) === null
@@ -67,7 +66,7 @@ class Title extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.reload)
+    window.removeEventListener('scroll', debounce(this.reload,100,false))
   }
   render() {
     const {data, loadmore} = this.state
@@ -81,8 +80,8 @@ class Title extends Component {
           <img src="https://o4j806krb.qnssl.com/public/images/cnodejs_light.svg" alt="cnode标志" />
         </div>
         <Header location={this.props.location} />
-        {data.length === 0 ? <Spin loading={true} /> : <EachTitle data={data} />}
-        <div style={{height: '55px'}}>
+        {data && data.length === 0 ? <Spin loading={true} /> : <TitleList data={data} />}
+        <div style={{height: loadmore ? '55px' : 0}}>
           <Spin loading={loadmore} style={{bottom: '50px'}} />
         </div>
         <Footer location={this.props.location} />
@@ -91,7 +90,7 @@ class Title extends Component {
   }
 }
 
-export const EachTitle = props => {
+export const TitleList = props => {
   return props.data.map((data, index) => {
     const {id, top, tab, good, title, author, reply_count, visit_count, create_at, last_reply_at} = data
     return (

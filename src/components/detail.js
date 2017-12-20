@@ -23,67 +23,72 @@ class Detail extends Component {
     }
     History = this.props.history
   }
-  reload = () => {
-    if (toBottom()) {
-      this.setState({
-        floor: this.state.floor + 10
-      })
-    }
-  }
+  loadMore = debounce(
+    () => {
+      if (toBottom()) {
+        this.setState({
+          floor: this.state.floor + 10
+        })
+      }
+    },
+    100,
+    false
+  )
   componentDidMount() {
     document.body.scrollTop = 0 //不加这个每次进去scroll都是上次浏览过的
     /**
      * 请求数据
      */
     this.update()
-    window.addEventListener('scroll', debounce(this.reload, 100, false))
+    window.addEventListener('scroll', this.loadMore)
   }
   componentWillUnmount() {
-    window.removeEventListener('scroll', debounce(this.reload, 100, false))
+    window.removeEventListener('scroll', this.loadMore)
   }
   /**
    * 回复消息后更新数据
    */
-  update = () => {
+  update = async () => {
     const {id} = this.props.match.params
-    request(`/topic/${id}`)
-      .then(res => {
-        this.setState({data: res.data})
-      })
-      .catch(error => {
-        console.log('error')
-      })
+    try {
+      let res = await request(`/topic/${id}`)
+      this.setState({data: res.data})
+    } catch (error) {
+      console.log(error.message)
+    }
   }
   handleText = e => {
     this.setState({text: e.target.value})
   }
-  send = () => {
+  send = async () => {
     const {text} = this.state
     const {id} = this.props.match.params
-    const {accesstoken} = this.props
+    const {AccessToken} = this.props
     if (text.trim() !== '')
-      request(`/topic/${id}/replies`, {
-        accesstoken: accesstoken,
-        content: text
-      }).then(res => {
+      try {
+        let res = await request(`/topic/${id}/replies`, {
+          accesstoken: AccessToken,
+          content: text
+        })
         if (res.success && res.success === true) {
           this.setState({text: ''})
           message.info('发送成功')
           this.update()
-        }
-      })
-    else message.error('总要写点什么吧')
+        } else message.error('总要写点什么吧')
+      } catch (error) {
+        console.log(error.message)
+      }
   }
   render() {
     const {data} = this.state
-    const {accesstoken, UserID} = this.props
+    const {AccessToken, UserID} = this.props
     return (
-      <div>
+      <div className="topic-container">
         <Guide history={this.props.history} title={data.title} />
         {!data.content ? (
           <Spin loading={!data.content} />
         ) : (
-          <div>
+          <div ref={container => (this.container = container)}>
             <User data={data} />
             <h2 className="topic-title">{data.title}</h2>
             <div
@@ -97,14 +102,14 @@ class Detail extends Component {
             <Anwser
               replies={data.replies}
               floor={this.state.floor}
-              accesstoken={accesstoken}
+              AccessToken={AccessToken}
               id={data.id}
               myname={UserID.loginname}
               authorname={data.author.loginname}
               update={this.update}
             />
-            {accesstoken === '' ? (
-              <Tip style={{padding: '20px 0'}} />
+            {AccessToken === '' ? (
+              <Tip style={{padding: '20px 0'}} location={this.props.location} />
             ) : (
               <div>
                 <TextArea
@@ -169,14 +174,14 @@ const Anwser = props => {
             <Ups
               length={anwser.ups.length}
               id={anwser.id}
-              accesstoken={props.accesstoken}
+              AccessToken={props.AccessToken}
               authorname={props.authorname}
               anwsername={anwser.author.loginname}
               myname={props.myname}
             />
             <Reply
               id={props.id}
-              accesstoken={props.accesstoken}
+              AccessToken={props.AccessToken}
               reply_id={anwser.id}
               loginname={anwser.author.loginname}
               update={props.update}
@@ -195,10 +200,10 @@ class Ups extends Component {
     action: ''
   }
   sendUps = () => {
-    const {id, accesstoken, myname, anwsername} = this.props
-    if (accesstoken !== '') {
+    const {id, AccessToken, myname, anwsername} = this.props
+    if (AccessToken) {
       if (anwsername !== myname) {
-        request(`/reply/${id}/ups`, {accesstoken: accesstoken}).then(res => {
+        request(`/reply/${id}/ups`, {accesstoken: AccessToken}).then(res => {
           this.setState({action: res.action})
         })
       } else {
@@ -245,11 +250,11 @@ class Reply extends Component {
   }
   send = () => {
     const {content} = this.state
-    const {id, accesstoken, reply_id} = this.props
-    if (accesstoken !== '') {
-      if (content.trim() !== '')
+    const {id, AccessToken, reply_id} = this.props
+    if (AccessToken) {
+      if (content.trim())
         request(`/topic/${id}/replies`, {
-          accesstoken: accesstoken,
+          accesstoken: AccessToken,
           content: content,
           reply_id: reply_id
         }).then(res => {
@@ -287,8 +292,8 @@ class Reply extends Component {
 }
 const mapStateToProps = state => {
   return {
-    accesstoken: state.SetAccessToken.AccessToken,
-    UserID: state.SetUserID.UserID
+    ...state.SetAccessToken,
+    ...state.SetUserID
   }
 }
 

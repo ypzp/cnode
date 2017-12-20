@@ -12,21 +12,20 @@ class UserView extends Component {
     }
   }
 
-  componentDidMount() {
-    let {id} = this.props.match.params
-    request('/user/' + id).then(res => {
-      this.setState({data: res.data})
-    })
+  async componentDidMount() {
+    let {id} = this.props.match.params,
+      res = await request('/user/' + id)
+    this.setState({data: res.data})
   }
 
-  componentWillReceiveProps(nextProps) {
+  async componentWillReceiveProps(nextProps) {
     const {id} = nextProps.match.params
 
-    if (id !== this.props.match.params.id)
+    if (id !== this.props.match.params.id) {
       //在用户详情页下点击该用户不再加载该用户
-      request('/user/' + id).then(res => {
-        this.setState({data: res.data})
-      })
+      let res = await request('/user/' + id)
+      this.setState({data: res.data})
+    }
   }
 
   render() {

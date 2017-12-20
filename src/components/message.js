@@ -50,7 +50,7 @@ class Message extends Component {
 }
 
 const mapStateToProps = state => {
-  return {AccessToken: state.SetAccessToken.AccessToken, USER_OFF: state.SetUserStatus.OFF}
+  return {...state.SetAccessToken}
 }
 const Title = ({messages}) => {
   if (messages.length !== 0) {

@@ -15,10 +15,22 @@ class Report extends Component {
   }
   modules: {
     toolbar: [
-      [{header: [1, 2, 3, 4, 5, 6, false]}, {font: []}],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{list: 'ordered'}, {list: 'bullet'}, {indent: '-1'}, {indent: '+1'}],
-      ['link', 'image'],
+      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+      ['blockquote', 'code-block'],
+
+      [{header: 1}, {header: 2}], // custom button values
+      [{list: 'ordered'}, {list: 'bullet'}],
+      [{script: 'sub'}, {script: 'super'}], // superscript/subscript
+      [{indent: '-1'}, {indent: '+1'}], // outdent/indent
+      [{direction: 'rtl'}], // text direction
+
+      [{size: ['small', false, 'large', 'huge']}], // custom dropdown
+      [{header: [1, 2, 3, 4, 5, 6, false]}],
+
+      [{color: []}, {background: []}], // dropdown with defaults from theme
+      [{font: []}],
+      [{align: []}],
+
       ['clean']
     ]
   }
@@ -38,15 +50,12 @@ class Report extends Component {
     'link',
     'image'
   ]
-  con
-  componentDidMount() {
-    //request(`/message/count?accesstoken=${AccessToken}`).then(res => { })
-  }
+
   send = () => {
     const {AccessToken} = this.props
     const {title, tab, content} = this.state
 
-    if (title.trim() !== '' && tab !== 'select' && content.trim() !== '') {
+    if (title.trim() && tab !== 'select' && content.trim()) {
       request(`/topics`, {
         accesstoken: AccessToken,
         title: title,
@@ -71,7 +80,7 @@ class Report extends Component {
   render() {
     const {location} = this.props
     return (
-      <div>
+      <div style={{height: '101vh'}}>
         <Guide title="发表主题">
           <i onClick={this.send} className="iconfont icon-fabiao report" />
         </Guide>
@@ -87,11 +96,12 @@ class Report extends Component {
         <Input onChange={this.handleTitle} placeholder="请输入标题" style={{height: '35px'}} />
         <ReactQuill
           value={this.state.content}
+          theme={'snow'}
           onChange={this.handleContent}
           id="quill-editor"
           modules={this.modules}
           formats={this.formats}
-          placeholder='请输入内容，不少于30字，支持markdown语法'
+          placeholder="请输入内容，不少于30字，支持markdown语法"
         />
         <Footer location={location} />
       </div>
@@ -100,9 +110,6 @@ class Report extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    AccessToken: state.SetAccessToken.AccessToken,
-    USER_OFF: state.SetUserStatus.OFF
-  }
+  return {...state.SetAccessToken}
 }
 export default connect(mapStateToProps)(Report)

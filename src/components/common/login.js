@@ -8,31 +8,30 @@ import {UserLogin, GetAccessToekn, SetUserStatus} from '../../actions/action'
 
 const Login = props => {
   const {UserLogin, GetAccessToken, SetUserStatus, location, history} = props,
-
-    login = () => {
+    login = async () => {
       let access_token = document.getElementById('submit-token').value
       if (getCookie('access_token')) access_token = getCookie('access_token')
-      request(`/accesstoken`, {accesstoken: access_token}).then(res => {
+      try {
+        let res = await request(`/accesstoken`, {accesstoken: access_token})
         if (res) {
-          request(`/user/${res.loginname}`)
-            .then(res => {
-              UserLogin(res.data)
-              GetAccessToken(access_token)
-              SetUserStatus(false)
-              sessionStorage.setItem('USER_ON', JSON.stringify(res.data))
-              sessionStorage.setItem('Status', false)
-              sessionStorage.setItem('AccessToken', access_token)
-              message.info('登陆成功，正在跳转')
-              setTimeout(() => {
-                history.push(location.state.from.pathname)
-              }, 400)
-              setCookie('access_token', access_token)
-            })
-            .catch(error => {
-              message.error('网络或者accesstoen错误')
-            })
+          res = await request(`/user/${res.loginname}`)
+          UserLogin(res.data)
+          GetAccessToken(access_token)
+          SetUserStatus(false)
+          sessionStorage.setItem('USER_ON', JSON.stringify(res.data))
+          sessionStorage.setItem('Status', false)
+          sessionStorage.setItem('AccessToken', access_token)
+          message.info('登陆成功，正在跳转')
+          setTimeout(() => {
+            if (/detail/.test(location.state.from.pathname)) history.go(-1)
+            else history.push(location.state.from.pathname)
+          }, 400)
+          setCookie('access_token', access_token)
         }
-      })
+      } catch (error) {
+        message.error('网络或者accesstoen错误')
+        console.log(error)
+      }
     }
 
   return (

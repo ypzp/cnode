@@ -9,37 +9,32 @@ import {UserLogin, GetAccessToekn, SetUserStatus} from '../actions/action'
 
 class Mine extends Component {
   state = {position: '北京市'}
-  componentWillMount() {
+  async componentWillMount() {
     this.getPosition()
     const {UserLogin, OFF} = this.props
     if (!OFF) {
-      request(`/accesstoken`, {accesstoken: sessionStorage.AccessToken}).then(res => {
-        if (res)
-          request(`/user/${res.loginname}`)
-            .then(res => {
-              UserLogin(res.data)
-              sessionStorage.setItem('USER_ON', JSON.stringify(res.data))
-            })
-            .catch(error => {
-              message.error('网络错误')
-            })
-      })
+      try {
+        let res = await request(`/accesstoken`, {accesstoken: sessionStorage.AccessToken})
+        if (res) {
+          let state = await request(`/user/${res.loginname}`)
+          UserLogin(state.data)
+          sessionStorage.setItem('USER_ON', JSON.stringify(state.data))
+        }
+      } catch (error) {
+        message.error('网络错误')
+      }
     }
   }
-  getPosition = () => {
-    fetch('http://freegeoip.net/json/')
-      .then(res => {
-        return res.json()
-      })
-      .then(res => {
-        fetch(`http://restapi.amap.com/v3/ip?key=c5c368adb8bb95aac7cab8099f2b716c&ip=${res.ip}`)
-          .then(res => {
-            return res.json()
-          })
-          .then(res => {
-            this.setState({position: res.city})
-          })
-      })
+  getPosition = async () => {
+    try {
+      let res = await fetch('http://freegeoip.net/json/')
+      res = await res.json()
+      let state = await fetch(`http://restapi.amap.com/v3/ip?key=c5c368adb8bb95aac7cab8099f2b716c&ip=${res.ip}`)
+      state = await state.json()
+      this.setState({position: state.city})
+    } catch (error) {
+      console.log(error)
+    }
   }
   logout = () => {
     const {UserLogin, GetAccessToken, SetUserStatus} = this.props
@@ -62,11 +57,7 @@ class Mine extends Component {
             {position}
           </i>
           <Popconfirm title="确认退出?" okText="退出" cancelText="取消" onConfirm={this.logout}>
-            <a
-              href="javascript:void(0)"
-              style={{position: 'absolute', right: '15px', color: '#fff'}}
-              className="iconfont icon-tuichu"
-            />
+            <a style={{position: 'absolute', right: '15px', color: '#fff'}} className="iconfont icon-tuichu" />
           </Popconfirm>
         </Guide>
         <UserInfo {...UserID} />
@@ -78,7 +69,7 @@ class Mine extends Component {
 }
 
 const mapStateToProps = state => {
-  return {UserID: state.SetUserID.UserID, OFF: state.SetUserStatus.OFF}
+  return {...state.SetUserID, ...state.SetUserStatus}
 }
 
 const mapDispatchToProps = dispatch => {
@@ -89,4 +80,3 @@ const mapDispatchToProps = dispatch => {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Mine)
-

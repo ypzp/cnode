@@ -48,6 +48,11 @@
     float: left;
 }
 
+footer,
+header {
+    font-size: 1.4rem;
+}
+
 .linkname {
     margin-top: 5px;
     margin-bottom: 3px;

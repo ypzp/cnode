@@ -5,7 +5,7 @@ import {ScrollTop, debounce} from './tool'
 export const Tip = props => {
   return (
     <div id="tip-login" style={props.style}>
-      您还未登陆,请<Link to="/my/login">登陆</Link>
+      您还未登陆,请<Link to={{pathname: '/my/login', state: {from: props.location}}}>登陆</Link>
     </div>
   )
 }
@@ -52,8 +52,7 @@ export const Header = props => {
             <li
               key={index}
               onClick={addClass}
-              className={data.path === location.pathname + location.search ? 'h_on' : ''}
-            >
+              className={data.path === location.pathname + location.search ? 'h_on' : ''}>
               {/*默认第一个*/}
               <Link to={data.path}>{data.text}</Link>
             </li>

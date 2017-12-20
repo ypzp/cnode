@@ -107,7 +107,7 @@ const throttle = function(func, wait, options) {
   let later = function() {
     previous = options.leading === false ? 0 : new Date().getTime()
     timeout = null
-    result = func(...args) //func.apply(context, args)
+    result = func.apply(context, args)
     if (!timeout) context = args = null
   }
   return function() {
@@ -126,7 +126,7 @@ const throttle = function(func, wait, options) {
         timeout = null
       }
       previous = current
-      result = func(...args) //func.apply(context, args)
+      result = func.apply(context, args)
       if (!timeout) context = args = null
     } else if (!timeout && options.trailing !== false) {
       // options.trailing=true时，延时执行func函数
@@ -149,7 +149,7 @@ const debounce = function(func, wait, immediate) {
     } else {
       timeout = null
       if (!immediate) {
-        result = func(...args) //func.apply(context, args)
+        result = func.apply(context, args)
         if (!timeout) context = args = null
       }
     }
@@ -164,7 +164,7 @@ const debounce = function(func, wait, immediate) {
     // 在wait指定的时间间隔内首次调用该方法，则启动计时器定时调用func函数
     if (!timeout) timeout = setTimeout(later, wait)
     if (callNow) {
-      result = func(...args) //func.apply(context, args)
+      result = func.apply(context, args)
       context = args = null
     }
     return result

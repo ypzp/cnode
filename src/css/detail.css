@@ -35,6 +35,12 @@
     font-size: 2.2rem;
 }
 
+.topic-container {
+    /*height: -webkit-calc(100vh - 50px);
+    height: -moz-calc(100vh - 50px);
+    height: calc(100vh - 50px);*/
+}
+
 .last_reply_at,
 .visted-count,
 .create_at {

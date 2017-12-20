@@ -136,7 +136,7 @@ const getUrl = (type, page) => {
 
 let currHeight = 0,
   prevHeight = 0
-const loadMore = index => {
+const loadMore = () => {
   prevHeight = currHeight
   currHeight = ScrollTop()
   return currHeight > prevHeight && toBottom()

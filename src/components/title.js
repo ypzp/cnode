@@ -8,7 +8,7 @@ import {Spin} from './common/spin'
 class Title extends Component {
   state = {
     data: [],
-    page: 2,
+    page: 5,
     loadmore: false
   }
   //page=2是因为初始的时候已经请求过一页了
@@ -37,7 +37,7 @@ class Title extends Component {
     window.onload = async () => {
       let res = await request(getUrl(type))
       localStorage.setItem(type, JSON.stringify(res.data))
-      this.setState({data: res.data, page: 2})
+      this.setState({data: res.data})
     }
     if (localStorage[type])
       //从文章详情页返回到原页面
@@ -64,6 +64,7 @@ class Title extends Component {
         data: JSON.parse(localStorage.getItem(type))
       })
     }
+    this.setState({page: 2})
   }
 
   componentWillUnmount() {
@@ -134,11 +135,13 @@ const getUrl = (type, page) => {
   else return type === '/topics' ? `${type}?page=${page}&limit=5` : `${type}&page=${page}&limit=5`
 }
 
-let currHeight = 0,
-  prevHeight = 0
-const loadMore = () => {
-  prevHeight = currHeight
-  currHeight = ScrollTop()
-  return currHeight > prevHeight && toBottom()
-}
+const loadMore = (() => {   //使用闭包。避免使用全局变量
+  let currHeight = 0,
+    prevHeight = 0
+  return () => {
+    prevHeight = currHeight
+    currHeight = ScrollTop()
+    return currHeight >= prevHeight && toBottom()
+  }
+})()
 export default Title
